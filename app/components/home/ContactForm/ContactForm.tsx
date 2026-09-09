@@ -1,194 +1,98 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
-import { ContactFormType, ContactSchema } from "@/app/lib/contact-schema";
+import { ExternalLink, Loader2 } from "lucide-react";
 
-export default function ContactForm() {
-  const [loading, setLoading] = useState(false);
+// Reemplaza esta URL con el enlace de tu propio formulario de Google Forms
+// Ejemplo: "https://docs.google.com/forms/d/e/1FAIpQLSc.../viewform?embedded=true"
+const GOOGLE_FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSc-PLACEHOLDER_FORM_ID/viewform?embedded=true";
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ContactFormType>({
-    resolver: zodResolver(ContactSchema),
-  });
+interface ContactFormProps {
+  formUrl?: string;
+}
 
-  const onSubmit = async (data: ContactFormType) => {
-    try {
-      setLoading(true);
-
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-
-      if (res.ok) {
-        toast.success("Enviado con éxito");
-        reset();
-      } else {
-        toast.error("Ocurrió un error al enviar el mensaje");
-      }
-    } catch (error) {
-      toast.error("No se pudo enviar el mensaje");
-    } finally {
-      setLoading(false);
-    }
-  };
+export default function ContactForm({ formUrl = GOOGLE_FORM_URL }: ContactFormProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const isPlaceholder = formUrl.includes("PLACEHOLDER_FORM_ID");
 
   return (
-    <section className="w-full py-20 px-6 md:px-20 bg-white">
-      <div className="max-w-5xl mx-auto">
+    <section className="w-full py-16 px-4 md:px-12 bg-white">
+      <div className="max-w-4xl mx-auto">
         {/* HEADER */}
-        <div className="text-center mb-12">
-          <p className="uppercase tracking-widest text-gray-500 font-inter text-md">
+        <div className="text-center mb-10">
+          <p className="uppercase tracking-widest text-gray-500 font-inter text-sm md:text-base font-semibold">
             Contáctanos
           </p>
 
-          <h2 className="text-4xl font-inter font-bold text-[#0d1b2a] mt-2">
+          <h2 className="text-3xl md:text-4xl font-inter font-bold text-[#0d1b2a] mt-2">
             Estamos aquí para ayudarte
           </h2>
+          <p className="text-gray-600 font-montserrat text-sm md:text-base mt-3 max-w-2xl mx-auto">
+            Completa el siguiente formulario y un asesor de Panel MG se pondrá en contacto contigo a la brevedad.
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-          {/* GRID */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* CAMPOS */}
-            <div>
-              <label className="text-md font-medium font-inter text-black">
-                Nombre y apellido
-              </label>
-              <input
-                {...register("name")}
-                placeholder="Su nombre y apellido"
-                className="mt-2 w-full rounded-md bg-gray-100 text-black px-4 py-3"
-              />
-              {errors.name && (
-                <p className="text-red-500 text-sm">{errors.name.message}</p>
-              )}
+        {/* EMBED CONTAINER */}
+        <div className="relative w-full rounded-2xl border border-gray-200 bg-gray-50 shadow-sm overflow-hidden min-h-[650px] md:min-h-[800px]">
+          {isLoading && !isPlaceholder && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 z-10">
+              <Loader2 className="animate-spin text-[#0C4572] mb-3" size={36} />
+              <p className="text-gray-600 font-inter text-sm">Cargando formulario...</p>
             </div>
-
-            <div>
-              <label className="text-md font-medium font-inter text-black">
-                Email
-              </label>
-              <input
-                {...register("email")}
-                placeholder="Su email corporativo"
-                className="mt-2 w-full rounded-md bg-gray-100 text-black px-4 py-3"
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email.message}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="text-md font-medium font-inter text-black">
-                Teléfono móvil
-              </label>
-              <input
-                {...register("phone")}
-                placeholder="Número de teléfono"
-                className="mt-2 w-full rounded-md bg-gray-100 text-black px-4 py-3"
-              />
-              {errors.phone && (
-                <p className="text-red-500 text-sm">{errors.phone.message}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="text-md font-medium font-inter text-black">
-                Empresa
-              </label>
-              <input
-                {...register("company")}
-                placeholder="Nombre de tu empresa"
-                className="mt-2 w-full rounded-md bg-gray-100 text-black px-4 py-3"
-              />
-              {errors.company && (
-                <p className="text-red-500 text-sm">{errors.company.message}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="text-md font-medium font-inter text-black">
-                País
-              </label>
-              <input
-                {...register("country")}
-                placeholder="País donde se encuentra"
-                className="mt-2 w-full rounded-md bg-gray-100 text-black px-4 py-3"
-              />
-              {errors.country && (
-                <p className="text-red-500 text-sm">{errors.country.message}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="text-md font-medium font-inter text-black">
-                Industria / sector
-              </label>
-              <input
-                {...register("industry")}
-                placeholder="Industria / sector"
-                className="mt-2 w-full rounded-md bg-gray-100 text-black px-4 py-3"
-              />
-              {errors.industry && (
-                <p className="text-red-500 text-sm">
-                  {errors.industry.message}
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* MENSAJE */}
-          <div>
-            <label className="text-md font-medium font-inter text-black">
-              Mensaje
-            </label>
-            <textarea
-              {...register("message")}
-              rows={6}
-              placeholder="Ej: Quiero saber más de..."
-              className="mt-2 w-full rounded-md bg-gray-100 text-black px-4 py-3 resize-none"
-            />
-            {errors.message && (
-              <p className="text-red-500 text-sm">{errors.message.message}</p>
-            )}
-          </div>
-
-          {/* CHECKBOX */}
-          <div className="flex items-start gap-3">
-            <input type="checkbox" {...register("accept")} className="mt-1" />
-            <p className="text-md text-black font-montserrat">
-              Acepto el tratamiento de mis datos y la política de privacidad
-            </p>
-          </div>
-          {errors.accept && (
-            <p className="text-red-500 text-sm">{errors.accept.message}</p>
           )}
 
-          {/* BOTÓN CON LOADER */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="px-8 py-3 bg-blue font-montserrat text-white rounded-md font-medium hover:bg-[#122b40] transition flex items-center gap-3"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="animate-spin" size={20} />
-                Enviando...
-              </>
-            ) : (
-              "Enviar"
-            )}
-          </button>
-        </form>
+          {isPlaceholder ? (
+            <div className="p-8 md:p-12 text-center flex flex-col items-center justify-center min-h-[500px]">
+              <div className="w-16 h-16 rounded-full bg-blue/10 flex items-center justify-center mb-4 text-[#0C4572]">
+                <ExternalLink size={28} />
+              </div>
+              <h3 className="text-xl font-bold font-inter text-[#0d1b2a] mb-2">
+                Google Forms Embed Listo
+              </h3>
+              <p className="text-gray-600 font-montserrat text-sm md:text-base max-w-lg mb-6">
+                Para mostrar tu formulario, simplemente edita la constante <code className="bg-gray-200 text-red-600 px-2 py-0.5 rounded text-xs font-mono">GOOGLE_FORM_URL</code> en <code className="text-xs bg-gray-200 px-2 py-0.5 rounded font-mono">ContactForm.tsx</code> con el link insertable de tu formulario de Google.
+              </p>
+              <div className="bg-blue-50 border border-blue-200 text-blue-900 rounded-lg p-4 text-xs md:text-sm text-left max-w-md w-full">
+                <p className="font-semibold mb-1">¿Cómo obtener el link insertable?</p>
+                <ol className="list-decimal list-inside space-y-1 text-gray-700">
+                  <li>Abre tu formulario en Google Forms.</li>
+                  <li>Haz clic en el botón <b>Enviar</b> (arriba a la derecha).</li>
+                  <li>Selecciona la pestaña de código <b>&lt; &gt; (Insertar HTML)</b>.</li>
+                  <li>Copia la URL del atributo <code className="font-mono">src=&quot;...&quot;</code> y pégala en <code className="font-mono">GOOGLE_FORM_URL</code>.</li>
+                </ol>
+              </div>
+            </div>
+          ) : (
+            <iframe
+              src={formUrl}
+              width="100%"
+              height="800"
+              frameBorder="0"
+              marginHeight={0}
+              marginWidth={0}
+              title="Formulario de contacto Panel MG"
+              className="w-full min-h-[800px] border-0"
+              onLoad={() => setIsLoading(false)}
+            >
+              Cargando formulario...
+            </iframe>
+          )}
+        </div>
+
+        {!isPlaceholder && (
+          <div className="mt-4 text-center">
+            <a
+              href={formUrl.replace("?embedded=true", "")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-[#0C4572] transition underline"
+            >
+              <span>¿Problemas para visualizar el formulario? Ábrelo en una nueva pestaña</span>
+              <ExternalLink size={12} />
+            </a>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16">
         <div className="flex flex-col gap-5">
           <Image
-            src="/logo.png"
+            src="/images/logo.png"
             alt="Panel MG"
             width={250}
             height={80}

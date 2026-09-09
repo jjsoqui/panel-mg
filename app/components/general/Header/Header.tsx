@@ -24,7 +24,7 @@ export default function Header() {
         {/* LOGO */}
         <Link href="/" className="shrink-0">
           <Image
-            src="/logo.png"
+            src="/images/logo.png"
             alt="Panel MG"
             width={250}
             height={50}

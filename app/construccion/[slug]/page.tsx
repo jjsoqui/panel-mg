@@ -9,6 +9,12 @@ interface Props {
   }>;
 }
 
+export function generateStaticParams() {
+  return pillars.map((el) => ({
+    slug: el.slug,
+  }));
+}
+
 export default async function ConstructionDetailPage({ params }: Props) {
   const { slug } = await params;
   console.log(slug);

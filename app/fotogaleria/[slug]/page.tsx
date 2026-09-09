@@ -8,6 +8,12 @@ interface Props {
   }>;
 }
 
+export function generateStaticParams() {
+  return pillars.map((el) => ({
+    slug: el.slug,
+  }));
+}
+
 export default async function PhotogalleryDetailPage({ params }: Props) {
   const { slug } = await params;
   const item = pillars.find((el) => el.slug === slug);
