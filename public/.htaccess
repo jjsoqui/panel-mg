@@ -1,0 +1,75 @@
+# =====================================================
+# CONFIGURACIÓN DE SEGURIDAD Y RENDIMIENTO - PANEL MG
+# Hostinger (Apache / LiteSpeed)
+# =====================================================
+
+# 1. EVITAR EL LISTADO DE DIRECTORIOS (Directory Browsing)
+# Evita que curiosos vean listas de archivos en carpetas como /images/ o /pdfs/
+Options -Indexes
+
+# 2. PÁGINA 404 PERSONALIZADA
+ErrorDocument 404 /404/index.html
+
+# 3. REGLAS DE REESCRITURA Y FORZAR HTTPS
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Forzar HTTPS si no está habilitado
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Servir index.html para rutas sin extensión
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}/index.html -f
+    RewriteRule ^(.*)/$ $1/index.html [L]
+</IfModule>
+
+# 4. CABECERAS DE SEGURIDAD (Security Headers)
+<IfModule mod_headers.c>
+    # Previene ataques de Clickjacking (nadie puede incrustar tu web en marcos ocultos)
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Previene ataques de MIME-Sniffing
+    Header always set X-Content-Type-Options "nosniff"
+
+    # HSTS: Obliga a los navegadores a conectarse siempre mediante HTTPS
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+    # Política de Referencias estricta para no fugar URLs privadas
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Deshabilita sensores y permisos del dispositivo que la web no necesita
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+    # Protección XSS para navegadores heredados
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# 5. BLOQUEAR ACCESO A ARCHIVOS OCULTOS Y CONFIGURACIONES
+# Bloquea intentos de acceder a .git, .env, .DS_Store, etc.
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# 6. COMPRESIÓN Y CACHÉ PARA MÁXIMA VELOCIDAD
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 day"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+</IfModule>
