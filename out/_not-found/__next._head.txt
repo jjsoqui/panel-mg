@@ -1,8 +1,8 @@
 1:"$Sreact.fragment"
-2:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"ViewportBoundary"]
-4:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"MetadataBoundary"]
+2:I[1073,["/_next/static/chunks/e436fd37437664b3.js","/_next/static/chunks/128f13f6867a1936.js","/_next/static/chunks/5a841cb6035fdcfc.js","/_next/static/chunks/356e116e1e2e0a80.js"],"ViewportBoundary"]
+4:I[1073,["/_next/static/chunks/e436fd37437664b3.js","/_next/static/chunks/128f13f6867a1936.js","/_next/static/chunks/5a841cb6035fdcfc.js","/_next/static/chunks/356e116e1e2e0a80.js"],"MetadataBoundary"]
 5:"$Sreact.suspense"
-7:I[27201,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"IconMark"]
-0:{"buildId":"kcdFYffDB_BUvbfFdtngp","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
+7:I[31399,["/_next/static/chunks/e436fd37437664b3.js","/_next/static/chunks/128f13f6867a1936.js","/_next/static/chunks/5a841cb6035fdcfc.js","/_next/static/chunks/356e116e1e2e0a80.js"],"IconMark"]
+0:{"buildId":"1qTQ8ocqcIHF9SSHgJTm7","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
 3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-6:[["$","title","0",{"children":"Panel MG - Soluciones Constructivas Innovadoras"}],["$","meta","1",{"name":"description","content":"Soluciones en materiales constructivos innovadores y sostenibles"}],["$","link","2",{"rel":"icon","href":"/favicon.ico?favicon.0b3bf435.ico","sizes":"256x256","type":"image/x-icon"}],["$","link","3",{"rel":"icon","href":"/images/logo.png","type":"image/png"}],["$","link","4",{"rel":"apple-touch-icon","href":"/images/logo.png"}],["$","$L7","5",{}]]
+6:[["$","title","0",{"children":"Panel MG - Soluciones Constructivas Innovadoras"}],["$","meta","1",{"name":"description","content":"Soluciones en materiales constructivos innovadores y sostenibles"}],["$","link","2",{"rel":"icon","href":"/favicon.png","type":"image/png"}],["$","link","3",{"rel":"apple-touch-icon","href":"/images/logo.png"}],["$","$L7","4",{}]]

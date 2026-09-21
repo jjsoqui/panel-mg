@@ -8,6 +8,7 @@ import { Header } from "./components/general/Header";
 import { Toaster } from "sonner";
 import { Footer } from "./components/general/Footer";
 import { WhatsAppFloating } from "./components/general/WhatsAppFloating";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Panel MG - Soluciones Constructivas Innovadoras",
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   icons: [
     {
       rel: "icon",
-      url: "/images/logo.png",
+      url: "/favicon.png",
       type: "image/png",
     },
     {
@@ -32,8 +33,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es-MX">
       <body className="bg-neutral-950 text-white">
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18428156484"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-gtag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'AW-18428156484');
+          `}
+        </Script>
+
         <Toaster richColors position="top-right" />
 
         <Header />
