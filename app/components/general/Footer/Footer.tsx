@@ -58,7 +58,13 @@ export default function Footer() {
                 Urbano Gómez 1300, La Joya, 44300 Guadalajara, Jal., Mexico.
               </p>
               <p className="text-base text-gray-300 leading-relaxed font-montserrat">
-                Telefono: +52 3312986648
+                Telefono:{" "}
+                <Link
+                  href="tel:+523312986648"
+                  className="underline hover:text-gray-200"
+                >
+                  +52 33 1298 6648
+                </Link>
               </p>
               <p className="text-base text-gray-300 leading-relaxed font-montserrat">
                 Email:{" "}
